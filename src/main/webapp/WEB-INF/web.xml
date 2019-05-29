@@ -1,0 +1,44 @@
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+    <display-name>Web Application</display-name>
+
+    <filter>
+        <filter-name>login</filter-name>
+        <filter-class>com.yogie.lesson.filter.LoginFilter</filter-class>
+        <init-param>
+            <param-name>outs</param-name>
+            <param-value>login.html,login,file.jsp</param-value>
+        </init-param>
+    </filter>
+
+    <filter>
+        <filter-name>encoding</filter-name>
+        <filter-class>com.yogie.lesson.filter.EncodingFilter</filter-class>
+        <init-param>
+            <param-name>charset</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>force</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>login</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>encoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <welcome-file-list>
+        <welcome-file>login.html</welcome-file>
+    </welcome-file-list>
+
+</web-app>
