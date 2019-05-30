@@ -7,6 +7,7 @@ import com.yogie.domain.Student;
 import com.yogie.service.PageBeanService;
 import com.yogie.util.BeanUtil;
 import com.yogie.util.FileUploadUtil;
+import com.yogie.util.StringUtil;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.ServletException;
@@ -135,9 +136,10 @@ public class Controller extends HttpServlet{
         //将数据库端还没有更新的那一条数据取出来
         Student studb = dao.queryOne(stu.getId());
         //如果前端进行重新上传图片
-        if(stu.getHeadimg()!=null || !"".equals(stu.getHeadimg())){
-            //将原来服务器端保存的图片删除
-            if(studb.getHeadimg()!=null && !"".equals(studb.getHeadimg())){
+        if(!StringUtil.isNull(stu.getHeadimg())){
+            //如果原来上传过图片
+            if(!StringUtil.isNull(studb.getHeadimg())){
+                //将原来服务器端保存的图片删除
                 String contextPath = req.getServletContext().getContextPath();
                 String path = studb.getHeadimg().substring(contextPath.length());
                 String realPath = req.getServletContext().getRealPath(path);
@@ -160,12 +162,12 @@ public class Controller extends HttpServlet{
     private void query(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //获取当前页面
         String currentPage = req.getParameter("currentPage");
-        if(currentPage==null || "".equals(currentPage)){
+        if(StringUtil.isNull(currentPage)){
             currentPage = "1";
         }
         //获取每页展示的条数
         String pageSize = req.getParameter("pageSize");
-        if(pageSize==null || "".equals(pageSize)){
+        if(StringUtil.isNull(pageSize)){
             pageSize = "5";
         }
         //获取模糊查询的关键字
