@@ -1,5 +1,7 @@
 package com.yogie.filter;
 
+import com.yogie.util.StringUtil;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +36,7 @@ public class EncodingFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse)servletResponse;
         //获取请求对象携带过来的编码方式
         String ce = req.getCharacterEncoding();
-        if( ce==null || "".equals(ce) || force){
+        if( StringUtil.isNull(ce) || force){
             //如果request请求中没有设置编码方式，
             //如果配置了强制使用配置中的编码方式
             req.setCharacterEncoding(charset);
